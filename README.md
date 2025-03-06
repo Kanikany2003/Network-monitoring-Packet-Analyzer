@@ -38,14 +38,71 @@ This project is built using the following tools and libraries:
 
 ## 🔍 Detailed Breakdown
 
-### **1️⃣ Network Scanning**
+### **1️⃣ Logging & Security System (Logger Class)**
 #### **What this part is about?**
-This section scans a given IP range to identify active devices on the network.
+Handles **secure logging** by encrypting logs to prevent tampering.
 
 #### **Main logic:**
-- Uses **ARP scanning** to detect devices.
-- Sends **ARP requests** and listens for responses.
-- Collects and displays **IP and MAC addresses** of active hosts.
+- Uses **AES encryption** to encrypt logs.
+- Stores logs in a secure format.
+- Ensures only authorized access.
+
+```python
+from Cryptodome.Cipher import AES
+from Cryptodome.Util.Padding import pad, unpad
+import base64
+
+def encrypt_log(data):
+    cipher = AES.new(SECRET_KEY, AES.MODE_CBC, iv=b"0123456789abcdef")
+    encrypted = cipher.encrypt(pad(data.encode(), AES.block_size))
+    return base64.b64encode(cipher.iv + encrypted).decode()
+```
+
+#### **Outcome:**
+- Logs remain **encrypted and secure**.
+- Prevents **unauthorized access or tampering**.
+
+---
+
+### **2️⃣ Email Alert System (AlertSystem Class)**
+#### **What this part is about?**
+Sends **real-time email alerts** when anomalies are detected.
+
+#### **Main logic:**
+- Uses **SMTP** to send emails.
+- Notifies **security teams or admins**.
+- Provides **instant response to threats**.
+
+```python
+import smtplib
+from email.mime.text import MIMEText
+
+def send_alert(subject, body):
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = "your_email@gmail.com"
+    msg["To"] = "admin@gmail.com"
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login("your_email@gmail.com", "your_password")
+    server.sendmail("your_email@gmail.com", "admin@gmail.com", msg.as_string())
+    server.quit()
+```
+
+#### **Outcome:**
+- Sends **instant alerts** upon detecting suspicious activity.
+- Notifies **admins/security teams** in real time.
+
+---
+
+### **3️⃣ Network Scanning (NetworkScanner Class)**
+#### **What this part is about?**
+Scans **networks for active hosts and open ports**.
+
+#### **Main logic:**
+- Uses **ARP scanning** to find devices.
+- Performs **SYN scans** to detect **open ports**.
+- Identifies **running services & operating systems**.
 
 ```python
 from scapy.all import ARP, Ether, srp
@@ -64,70 +121,19 @@ def scan_ip_range(ip_range):
 ```
 
 #### **Outcome:**
-- Successfully lists all active devices in the network.
-- Provides a clear mapping of **IP addresses to MAC addresses**.
-
-💡 **Output Example:**
-```
-Scanning network...
-Active Hosts Found:
-192.168.1.10 - MAC: 00:1A:2B:3C:4D:5E
-192.168.1.12 - MAC: 00:1A:2B:3C:4D:5F
-```
+- **Finds active hosts & their MAC addresses**.
+- Identifies **open ports & running services**.
 
 ---
 
-### **2️⃣ Port Scanning & Banner Grabbing**
+### **4️⃣ Packet Sniffing & Traffic Analysis**
 #### **What this part is about?**
-This section scans a device for **open ports** and identifies services running on them.
+Monitors **live network traffic** and detects suspicious activity.
 
 #### **Main logic:**
-- Uses **TCP socket connections** to check if ports are open.
-- Sends **a small payload** to trigger banner responses.
-- Captures and displays **service information** running on open ports.
-
-```python
-import socket
-
-def scan_ports(ip, ports):
-    open_ports = {}
-    for port in ports:
-        try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(1)
-            if sock.connect_ex((ip, port)) == 0:
-                sock.send(b'\n')  # Trigger banner response
-                banner = sock.recv(1024).decode().strip()
-                open_ports[port] = banner if banner else "Unknown Service"
-            sock.close()
-        except:
-            pass
-    return open_ports
-```
-
-#### **Outcome:**
-- Detects **which ports are open** on a target machine.
-- Identifies **what services are running** on those ports.
-
-💡 **Output Example:**
-```
-Scanning 192.168.1.10...
-Open Ports:
-- 22: OpenSSH 7.9
-- 80: Apache HTTP Server
-- 3306: MySQL Database
-```
-
----
-
-### **3️⃣ Packet Sniffing**
-#### **What this part is about?**
-This section **monitors live network traffic** and analyzes packets.
-
-#### **Main logic:**
-- Uses **Scapy’s `sniff()` function** to capture packets.
-- Extracts **source & destination IP addresses**.
-- Identifies **TCP, UDP, and ICMP traffic**.
+- Captures **real-time network packets**.
+- Detects **TCP, UDP, and ICMP traffic**.
+- Identifies **potential anomalies**.
 
 ```python
 from scapy.all import sniff, IP, TCP, UDP
@@ -144,28 +150,57 @@ sniff(prn=packet_callback, store=False)
 ```
 
 #### **Outcome:**
-- Captures **real-time network traffic**.
-- Identifies **which devices are communicating**.
-
-💡 **Output Example:**
-```
-Packet: 192.168.1.10 -> 8.8.8.8
-TCP Packet: 50542 -> 443 (HTTPS Request)
-```
+- **Detects & classifies traffic in real time**.
+- Helps **analyze potential network threats**.
 
 ---
 
-## 📌 Installation & Usage
-### **Install Dependencies:**
-```bash
-pip install scapy tqdm networkx matplotlib pycryptodome termcolor
+### **5️⃣ Network Visualization (Graphing Network Topology)**
+#### **What this part is about?**
+Visualizes **network topology using graphs**.
+
+#### **Main logic:**
+- Uses **NetworkX & Matplotlib** to draw network structures.
+- Represents **devices & their connections**.
+
+```python
+import networkx as nx
+import matplotlib.pyplot as plt
+
+def plot_network_graph(devices):
+    G = nx.Graph()
+    for device in devices:
+        G.add_node(device['ip'], label=f"{device['ip']} [MAC: {device['mac']}")
+    nx.draw(G, with_labels=True, node_color='skyblue', node_size=2000, font_size=10)
+    plt.show()
 ```
 
-### **Run the Program:**
-```bash
-python network_monitor.py
-```
+#### **Outcome:**
+- Provides **a clear visualization of the network**.
+- Helps **understand network topology & device connectivity**.
 
 ---
 
+### **6️⃣ User Interface & Menu System**
+#### **What this part is about?**
+Allows **users to select features** interactively.
+
+#### **Main logic:**
+- Displays **a menu-driven interface**.
+- Lets users **choose network scanning, sniffing, or visualization**.
+
+```python
+print("\nNetwork Scanner Menu:")
+print("1. Port Scanning")
+print("2. Packet Sniffing")
+print("3. Network Topology")
+print("4. Exit")
+choice = input("Choose an option: ")
+```
+
+#### **Outcome:**
+- Makes **navigation easy & user-friendly**.
+- Provides a **clear menu to choose operations**.
+
+---
 
