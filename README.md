@@ -139,13 +139,16 @@ def scan_ip_range(ip_range):
 ```
 Starting IP scan on range: 192.168.X.X/24
 Host 192.168.1.X is up (Latency: 3.9351 ms) [MAC: 3c:XX:XX:XX:XX:XX, OS: Linux (Ubuntu/Debian/Fedora)]
-Active Hosts Found:
 
-Scan complete: 1 host(s) up, 0 down, scanned in 0.01 seconds
-INFO:root:IP scan completed. 1 hosts found.
+Scanning 192.168.1.X [MAC: 3c:XX:XX:XX:XX:XX] for ports [23, 80]
+INFO:root:Starting port scan on 192.168.1.X for 2 ports.
+INFO:root:Port 23 is open on 192.168.1.X
+INFO:root:Port 80 is open on 192.168.1.X
+INFO:root:Port scan complete. Open ports on 192.168.1.X: [23, 80]
 
-192.168.1.10 - MAC: 00:1A:2B:3C:4D:XX
-192.168.1.12 - MAC: 00:1A:2B:3C:4D:XX (Latency: 3.9351 ms)
+Open ports on 192.168.0.1:
+  - Port 23 is open; Service: No Banner
+  - Port 80 is open; Service: No Banner
 ```
 
 ---
@@ -180,8 +183,19 @@ sniff(prn=packet_callback, store=False)
 ---
 **Example Output:**
 ```
-Packet: 192.168.1.10 -> 8.8.8.8
-TCP Packet: 50542 -> 443 (HTTPS Request)
+Enter the network interface name (e.g., en0, wlan0): en0
+
+Choose port scan option:
+1. Scan specific ports (e.g., 22, 80, 443)
+2. Scan a range of ports (e.g., 21-100)
+3. Exit
+Choose an option (1, 2, 3): 1
+```
+```
+Starting packet sniffing on en0 for monitored ports [22, 23, 80]...
+Suspicious TCP Traffic: 192.168.1.X -> 17.123.XX.XXX (Port 80)
+Suspicious TCP Traffic: 1192.168.1.X -> 17.123.XX.XXX (Port 80)
+Saved 50 packets to captured_traffic.pcap
 ```
 
 ---
