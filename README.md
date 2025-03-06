@@ -1,7 +1,5 @@
 # Network Monitoring & Packet Analyzer
 
-![Network Monitoring](https://user-images.githubusercontent.com/example/network-monitoring-banner.png)
-
 ## Overview
 This **Network Monitoring & Packet Analyzer** is a **Python-based** cybersecurity tool designed to:
 
