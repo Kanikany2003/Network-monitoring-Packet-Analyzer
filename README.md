@@ -1,6 +1,6 @@
-# Network Monitoring & Packet Analyzer
+# 📡 Network Monitoring & Packet Analyzer
 
-## Overview
+## 🌟 Overview
 This **Network Monitoring & Packet Analyzer** is a **Python-based** cybersecurity tool designed to:
 
 ✔ **Scan networks** for active hosts & open ports  
@@ -39,7 +39,13 @@ This project is built using the following tools and libraries:
 ## 🔍 Detailed Breakdown
 
 ### **1️⃣ Network Scanning**
-📌 **Finds active devices & detects open ports**
+#### **What this part is about?**
+This section scans a given IP range to identify active devices on the network.
+
+#### **Main logic:**
+- Uses **ARP scanning** to detect devices.
+- Sends **ARP requests** and listens for responses.
+- Collects and displays **IP and MAC addresses** of active hosts.
 
 ```python
 from scapy.all import ARP, Ether, srp
@@ -57,6 +63,10 @@ def scan_ip_range(ip_range):
     return active_hosts
 ```
 
+#### **Outcome:**
+- Successfully lists all active devices in the network.
+- Provides a clear mapping of **IP addresses to MAC addresses**.
+
 💡 **Output Example:**
 ```
 Scanning network...
@@ -68,7 +78,13 @@ Active Hosts Found:
 ---
 
 ### **2️⃣ Port Scanning & Banner Grabbing**
-📌 **Identifies open ports and services running on them**
+#### **What this part is about?**
+This section scans a device for **open ports** and identifies services running on them.
+
+#### **Main logic:**
+- Uses **TCP socket connections** to check if ports are open.
+- Sends **a small payload** to trigger banner responses.
+- Captures and displays **service information** running on open ports.
 
 ```python
 import socket
@@ -89,6 +105,10 @@ def scan_ports(ip, ports):
     return open_ports
 ```
 
+#### **Outcome:**
+- Detects **which ports are open** on a target machine.
+- Identifies **what services are running** on those ports.
+
 💡 **Output Example:**
 ```
 Scanning 192.168.1.10...
@@ -101,7 +121,13 @@ Open Ports:
 ---
 
 ### **3️⃣ Packet Sniffing**
-📌 **Monitors network traffic for suspicious activity**
+#### **What this part is about?**
+This section **monitors live network traffic** and analyzes packets.
+
+#### **Main logic:**
+- Uses **Scapy’s `sniff()` function** to capture packets.
+- Extracts **source & destination IP addresses**.
+- Identifies **TCP, UDP, and ICMP traffic**.
 
 ```python
 from scapy.all import sniff, IP, TCP, UDP
@@ -117,80 +143,14 @@ def packet_callback(packet):
 sniff(prn=packet_callback, store=False)
 ```
 
+#### **Outcome:**
+- Captures **real-time network traffic**.
+- Identifies **which devices are communicating**.
+
 💡 **Output Example:**
 ```
 Packet: 192.168.1.10 -> 8.8.8.8
 TCP Packet: 50542 -> 443 (HTTPS Request)
-```
-
----
-
-### **4️⃣ Network Visualization**
-📌 **Generates a network topology graph**
-
-```python
-import networkx as nx
-import matplotlib.pyplot as plt
-
-def plot_network_graph(devices):
-    G = nx.Graph()
-    for device in devices:
-        G.add_node(device['ip'], label=f"{device['ip']} [MAC: {device['mac']}")
-    nx.draw(G, with_labels=True, node_color='skyblue', node_size=2000, font_size=10)
-    plt.show()
-```
-
-💡 **Graph Example:**
-![Network Topology](https://user-images.githubusercontent.com/example/network-graph.png)
-
----
-
-### **5️⃣ Secure Logging (AES Encryption)**
-📌 **Encrypts scan logs to prevent tampering**
-
-```python
-from Cryptodome.Cipher import AES
-from Cryptodome.Util.Padding import pad, unpad
-import base64
-
-SECRET_KEY = b"MySecureKey12345"
-
-def encrypt_log(data):
-    cipher = AES.new(SECRET_KEY, AES.MODE_CBC, iv=b"0123456789abcdef")
-    encrypted = cipher.encrypt(pad(data.encode(), AES.block_size))
-    return base64.b64encode(cipher.iv + encrypted).decode()
-```
-
-💡 **Output Example (Encrypted Log):**
-```
-U2FsdGVkX1+abx....
-```
-
----
-
-### **6️⃣ Real-Time Email Alerts**
-📌 **Notifies admins when anomalies are detected**
-
-```python
-import smtplib
-from email.mime.text import MIMEText
-
-def send_alert(subject, body):
-    msg = MIMEText(body)
-    msg["Subject"] = subject
-    msg["From"] = "your_email@gmail.com"
-    msg["To"] = "admin@gmail.com"
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login("your_email@gmail.com", "your_password")
-    server.sendmail("your_email@gmail.com", "admin@gmail.com", msg.as_string())
-    server.quit()
-```
-
-💡 **Alert Example:**
-```
-[ALERT] Suspicious Activity Detected!
-An unauthorized IP 192.168.1.50 is scanning ports.
 ```
 
 ---
@@ -208,5 +168,4 @@ python network_monitor.py
 
 ---
 
-## 📜 License
-This project is **open-source** under the **MIT License**. Feel free to contribute and improve! 😊
+
