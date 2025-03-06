@@ -1,6 +1,6 @@
-# 📡 Network Monitoring & Packet Analyzer
+# Network Monitoring & Packet Analyzer
 
-## 🌟 Overview
+## Overview
 This **Network Monitoring & Packet Analyzer** is a **Python-based** cybersecurity tool designed to:
 
 ✔ **Scan networks** for active hosts & open ports  
