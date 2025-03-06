@@ -137,10 +137,15 @@ def scan_ip_range(ip_range):
 
 **Example Output:**
 ```
-Scanning network...
+Starting IP scan on range: 192.168.X.X/24
+Host 192.168.1.X is up (Latency: 3.9351 ms) [MAC: 3c:XX:XX:XX:XX:XX, OS: Linux (Ubuntu/Debian/Fedora)]
 Active Hosts Found:
-192.168.1.10 - MAC: 00:1A:2B:3C:4D:5E
-192.168.1.12 - MAC: 00:1A:2B:3C:4D:5F
+
+Scan complete: 1 host(s) up, 0 down, scanned in 0.01 seconds
+INFO:root:IP scan completed. 1 hosts found.
+
+192.168.1.10 - MAC: 00:1A:2B:3C:4D:XX
+192.168.1.12 - MAC: 00:1A:2B:3C:4D:XX (Latency: 3.9351 ms)
 ```
 
 ---
@@ -230,9 +235,50 @@ choice = input("Choose an option: ")
 
 **Example Output:**
 ```
-Packet: 192.168.1.10 -> 8.8.8.8
-TCP Packet: 50542 -> 443 (HTTPS Request)
+1️⃣ Port Scanning Menu:
+1. Scan specific ports (e.g., 22, 80, 443)
+2. Scan a range of ports (e.g., 21-100)
+3. Scan all ports (1-65535)
+4. Exit
+Choose an option (1, 2, 3, 4):
 ```
-
+```
+2️⃣Choose an option (1, 2, 3, 4): 2
+Available interfaces:
+1. lo0
+2. gif0
+3. stf0
+4. anpi1
+5. anpi0
+6. en3
+7. en4
+8. en1
+9. en2
+10. bridge0
+11. ap1
+12. en0
+13. awdl0
+14. llw0
+15. utun0
+16. utun1
+17. utun2
+18. utun3
+19. utun4
+20. utun5
+21. utun6
+22. utun7
+23. vmenet0
+24. bridge100
+25. vmenet1
+26. bridge101
+Enter the network interface name (e.g., en0, wlan0): 
+```
+```
+Choose port scan option:
+1. Scan specific ports (e.g., 22, 80, 443)
+2. Scan a range of ports (e.g., 21-100)
+3. Exit
+Choose an option (1, 2, 3):
+```
 ---
 
