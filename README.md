@@ -62,6 +62,11 @@ def encrypt_log(data):
 - Logs remain **encrypted and secure**.
 - Prevents **unauthorized access or tampering**.
 
+**Example Encrypted Log Output:**
+```
+U2FsdGVkX1+abx....
+```
+
 ---
 
 ### **2️⃣ Email Alert System (AlertSystem Class)**
@@ -92,6 +97,12 @@ def send_alert(subject, body):
 #### **Outcome:**
 - Sends **instant alerts** upon detecting suspicious activity.
 - Notifies **admins/security teams** in real time.
+
+**Example Alert Message:**
+```
+[ALERT] Suspicious Activity Detected!
+An unauthorized IP 192.168.1.50 is scanning ports.
+```
 
 ---
 
@@ -124,6 +135,14 @@ def scan_ip_range(ip_range):
 - **Finds active hosts & their MAC addresses**.
 - Identifies **open ports & running services**.
 
+**Example Output:**
+```
+Scanning network...
+Active Hosts Found:
+192.168.1.10 - MAC: 00:1A:2B:3C:4D:5E
+192.168.1.12 - MAC: 00:1A:2B:3C:4D:5F
+```
+
 ---
 
 ### **4️⃣ Packet Sniffing & Traffic Analysis**
@@ -152,6 +171,13 @@ sniff(prn=packet_callback, store=False)
 #### **Outcome:**
 - **Detects & classifies traffic in real time**.
 - Helps **analyze potential network threats**.
+
+---
+**Example Output:**
+```
+Packet: 192.168.1.10 -> 8.8.8.8
+TCP Packet: 50542 -> 443 (HTTPS Request)
+```
 
 ---
 
@@ -201,6 +227,12 @@ choice = input("Choose an option: ")
 #### **Outcome:**
 - Makes **navigation easy & user-friendly**.
 - Provides a **clear menu to choose operations**.
+
+**Example Output:**
+```
+Packet: 192.168.1.10 -> 8.8.8.8
+TCP Packet: 50542 -> 443 (HTTPS Request)
+```
 
 ---
 
