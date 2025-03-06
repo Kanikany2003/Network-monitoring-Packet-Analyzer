@@ -24,6 +24,15 @@ This project is built using the following tools and libraries:
 | `Cryptodome` | AES encryption for log security |
 | `tqdm` | Progress bar for scans |
 | `smtplib` | Email alert system |
+| `ipaddress` | IP address validation |
+| `os` | System operations |
+| `time` | Measuring response times |
+| `logging` | Logging system events |
+| `json` | Storing scan results |
+| `random` | Randomized operations |
+| `termcolor` | Colorized CLI output |
+| `base64` | Encoding & decoding encrypted logs |
+| `email.mime.text` | Formatting email messages |
 
 ---
 
