@@ -349,3 +349,61 @@ Choose an option (1, 2, 3):
 ```
 ---
 
+## Why This Project is Important
+
+### ** Enhances Network Security**
+- Helps **identify unauthorized devices** on a network.
+- Detects **open ports & running services**, reducing security risks.
+
+### ** Real-Time Threat Detection**
+- Monitors **network traffic for anomalies**.
+- Sends **real-time alerts** when suspicious activity is detected.
+
+### ** Advanced Network Analysis**
+- Performs **deep packet inspection** to classify traffic.
+- Uses **OS fingerprinting** to identify systems on the network.
+
+### ** Visualizes Network Topology**
+- Generates **graphical network maps** to enhance visibility.
+- Helps **network administrators understand connectivity**.
+
+### ** Secure Logging**
+- Encrypts **all network activity logs** using **AES encryption**.
+- Prevents **log tampering & unauthorized access**.
+
+---
+
+## What Can Be Improved?
+
+### ** Performance Optimization**
+🔹 **Implement Multi-threading** to speed up scanning.
+🔹 Use **async networking** to perform **faster port scans**.
+
+### ** Enhanced Packet Analysis**
+🔹 Add **Intrusion Detection System (IDS) rules** to detect cyber threats.
+🔹 Integrate **machine learning models** for anomaly detection.
+
+### ** Advanced Reporting & Visualization**
+🔹 Generate **detailed reports (PDF, CSV, JSON)** for better analysis.
+🔹 Develop a **web dashboard** (using Flask & Grafana) to display live data.
+
+### ** Better Security & Stealth Features**
+🔹 Add **Tor/proxy support** for anonymous scanning.
+🔹 Implement **packet fragmentation** to bypass firewalls & IDS detection.
+🔹 Use **encrypted communications** when sending alerts.
+
+---
+
+## 📌 Installation & Usage
+### **Install Dependencies:**
+```bash
+pip install scapy tqdm networkx matplotlib pycryptodome termcolor
+```
+
+### **Run the Program:**
+```bash
+python network_monitor.py
+```
+
+---
+
