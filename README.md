@@ -106,15 +106,67 @@ An unauthorized IP 192.168.1.50 is scanning ports.
 
 ---
 
-### **3️⃣ Network Scanning (NetworkScanner Class)**
+### **3️⃣ Stealth scanner (NetworkScanner Class)**
+#### **What this part is about?**
+Focuses on **stealth scanning (SYN scan) and OS detection.**
+
+#### **Main logic:**
+- Performs **SYN scans** to detect **open ports**.
+- Performs **stealthy reconnaissance** on a specific target.
+- Uses **randomized delays** and **logs alerts**.
+
+```python
+from scapy.all import ARP, Ether, srp
+
+def stealth_scan(target, ports): #stealth scanning
+    if not NetworkScanner.is_valid_ip(target):
+        print(colored("Invalid IP address.", "red"))
+        return
+        
+    print(colored(f"Performing SYN scan on {target}...", "cyan"))
+    results = {}
+    alert_triggered = False
+    for port in tqdm(ports, desc="Scanning Ports", unit="port"):
+        time.sleep(random.uniform(0.5, 2))  # Random delay for stealth
+        pkt = IP(dst=target)/TCP(dport=port, flags="S")
+        resp = sr1(pkt, timeout=1, verbose=0)
+
+    Logger.log_secure(json.dumps(results))
+    print(json.dumps(results, indent=4))
+```
+
+#### **Outcome:**
+- **Finds open/closed/filtered** ports on a target IP.
+- Uses **stealthy SYN scanning** (doesn't establish a full connection).
+- **Identifies OS fingerprinting** based on TTL and TCP window size.
+- **Generates alerts** if open ports are found.
+- Saves results **securely in logs** (AES encrypted).
+
+**Example Output:**
+```
+Enter target IP: 192.168.X.X
+Performing SYN scan on 192.168.X.X...
+Scanning Ports: 100%|██████████████████████████████████████| 5/5 [00:07<00:00,  1.48s/port]
+{
+    "22": "Closed",
+    "80": "Open",
+    "443": "Closed",
+    "8080": "Closed",
+    "3306": "Closed"
+}
+```
+
+---
+
+### **3️⃣ Network Discovery**
 #### **What this part is about?**
 Scans **networks for active hosts and open ports**.
 
 #### **Main logic:**
-- Uses **ARP scanning** to find devices.
-- Performs **SYN scans** to detect **open ports**.
-- Identifies **running services & operating systems**.
-
+- Focuses on **ARP-based host discovery** and **port scanning**.
+- Performs **full network scanning over a range of IPs**.
+- Includes **latency measurement** and **packet sniffing**.
+- 
 ```python
 from scapy.all import ARP, Ether, srp
 
@@ -132,8 +184,9 @@ def scan_ip_range(ip_range):
 ```
 
 #### **Outcome:**
-- **Finds active hosts & their MAC addresses**.
-- Identifies **open ports & running services**.
+- **Finds active devices** on a network (via ARP scanning).
+- **Scans open ports** on discovered hosts.
+- **Measures latency** of responding hosts.
 
 **Example Output:**
 ```
